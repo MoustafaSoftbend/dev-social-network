@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDb = require('./config/db');
+const colors = require('colors');
 
 const app = express();
 
@@ -7,7 +8,8 @@ const app = express();
 //  Connect database
 connectDb();
 
-
+// Init Middleware
+app.use(express.json());
 
 app.get('/', (req, res) => res.send('API running'))
 
@@ -26,5 +28,5 @@ app.use('/api/profile', profile);
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {
-    console.log(`Sevrer running on port: ${PORT}`)
+    console.log(`Sevrer running on port: ${PORT}`.rainbow)
 })

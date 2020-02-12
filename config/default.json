@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://MoustafaBend:w120059@socialdev-6m1g0.gcp.mongodb.net/test?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://MoustafaBend:w120059@socialdev-6m1g0.gcp.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "This is Spaartan"
 }
