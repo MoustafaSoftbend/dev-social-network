@@ -30,3 +30,11 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
     console.log(`Sevrer running on port: ${PORT}`.rainbow)
 })
+
+
+process.on('unhandeledRejection', function(err, promise) {
+    console.error(`Error: ${err.message}`.red);
+
+    // Close server and Exit process
+    server.close(() => process.exit(1))
+})

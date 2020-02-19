@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const ProfileSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
-        ref: 'user'
+        ref: 'User'
     },
     company: {
         type: String
@@ -19,7 +19,7 @@ const ProfileSchema = new mongoose.Schema({
         required: true
     },
     skills: {
-        type: String,
+        type: [String],
         required: true
     },
     bio: {
@@ -57,7 +57,7 @@ const ProfileSchema = new mongoose.Schema({
         }
     }
     ],
-    exducation: [
+    education: [
     {
         school: {
             type: String,

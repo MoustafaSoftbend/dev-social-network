@@ -1,4 +1,6 @@
 {
     "mongoURI": "mongodb+srv://MoustafaBend:w120059@socialdev-6m1g0.gcp.mongodb.net/test?retryWrites=true&w=majority",
-    "jwtSecret": "This is Spaartan"
+    "jwtSecret": "This is Spaartan",
+    "githubClientId": "Iv1.d092948dd0c1f996",
+    "githubSecret":"51cfec933e732146fd8aab95f638fff329089ab7"
 }
