@@ -4,7 +4,8 @@ const config = require('config')
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
-const User = require('../../models/User')
+const User = require('../../models/User');
+const Post = require('../../models/Posts');
 const {check, validationResult} = require('express-validator')
 
 // @route   Get api/profile/me
@@ -14,11 +15,9 @@ router.get('/me',auth, async (req, res)=> {
     try {
         const profile = await Profile.findOne({user: req.user.id}).populate('user', ['name', 'avatar']);
 
-        console.log(profile)
-
 
         if(!profile){
-            return res.status(400).json({msg: 'There is no profile for this user'})
+            return res.status(404).json({msg: 'There is no profile for this user'})
         }
 
 
@@ -69,8 +68,8 @@ router.post('/',[auth, [
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
-    if(skills) {
-        profileFields.skills = skills.split(',').map(skill => skill.trim());
+    if(skills) {    
+        profileFields.skills = Array.isArray(skills)? skills : skills.split(',').map(skill => ' ' + skill.trim())
     }
 
     //  Build social object
@@ -149,8 +148,8 @@ router.get('/user/:user_id', async (req, res) => {
 // @access  Private
 router.delete('/',auth, async(req, res) => {
     try{
-        // @todo  -  remove usersposts
-
+        // @todo  -  remove user posts
+        await Post.deleteMany({user: req.user.id})
         // get profile
         const profile = await Profile.findOne({user: req.user.id});
         // get user
@@ -208,6 +207,10 @@ async(req, res) => {
 
     try {
         const profile = await Profile.findOne({user: req.user.id});
+
+        if (!profile) {
+            return res.status(404).json({msg: 'Profile not found'})
+        }
 
         profile.experience.unshift(newExp);
 
